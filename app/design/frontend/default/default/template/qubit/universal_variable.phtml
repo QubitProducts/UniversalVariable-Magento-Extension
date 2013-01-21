@@ -14,7 +14,7 @@
   };
 ?>
 
-<?php if ($qubit_universal_variable_enabled == 1):?>
+<?php if ($qubit_universal_variable_enabled == 1) :?>
 <?php
   // extract variable only when universal variable is enabled 
   $version         = $mage->getVersion();
@@ -29,27 +29,27 @@
 <!-- Universal Variable Start -->
 <script type="text/javascript">
   window.universal_variable = window.universal_variable || {};
-  window.universal_variable.version           = <?php echo json_encode($version) ?>;
-  window.universal_variable.magento_version   = <?php echo json_encode($magento_version) ?>;
-  window.universal_variable.page         = <?php echo json_encode($page)    ?>;
-  window.universal_variable.user         = <?php echo json_encode($user)    ?>;
-  <?php if ($product) : ?>
-  window.universal_variable.product      = <?php echo json_encode($product) ?>;
-  <?php endif?>
-  <?php if ($basket) : ?>
-  window.universal_variable.basket       = <?php echo json_encode($basket)  ?>;
-  <?php endif ?>
-  <?php if ($listing) : ?>
-  window.universal_variable.listing      = <?php echo json_encode($listing) ?>;
-  <?php endif ?>
-  <?php if ($transaction) : ?>
-  window.universal_variable.transaction  = <?php echo json_encode($transaction)  ?>;
-  <?php endif ?>
+  window.universal_variable.version         = <?php echo json_encode($version); ?>;
+  window.universal_variable.magento_version = <?php echo json_encode($magento_version) ?>;
+  window.universal_variable.page            = <?php echo json_encode($page); ?>;
+  window.universal_variable.user            = <?php echo json_encode($user); ?>;
+  <?php if ($product) :?>
+  window.universal_variable.product = <?php echo json_encode($product) ?>;
+  <?php endif; ?>
+  <?php if ($basket) :?>
+  window.universal_variable.basket  = <?php echo json_encode($basket) ?>;
+  <?php endif; ?>
+  <?php if ($listing) :?>
+  window.universal_variable.listing = <?php echo json_encode($listing) ?>;
+  <?php endif; ?>
+  <?php if ($transaction) :?>
+  window.universal_variable.transaction = <?php echo json_encode($transaction) ?>;
+  <?php endif; ?>
 </script>
 <!-- Universal Variable End -->
 <?php endif;?>
 
-<?php if ($qubit_opentag_container_id && $qubit_opentag_enabled == 1):?>
+<?php if ($qubit_opentag_container_id && $qubit_opentag_enabled == 1) :?>
 <!-- QuBit OpenTag Start -->
 <script type="text/javascript" src='//d3c3cq33003psk.cloudfront.net/opentag-<?php echo $qubit_opentag_container_id;?>.js' <?php echo $qubit_opentag_async;?>></script>
 <!-- QuBit OpenTag End -->

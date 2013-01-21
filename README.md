@@ -21,6 +21,10 @@ The extension is released under Apache License 2.0
 
 ## Changelog
 
+### 1.0.8
+* Rename page categroy from controller/view naming to correct page category inclueding home, checkout, basket, confirmation, product, categroy pages
+* Added `listing` variable for category pages 
+
 ### 1.0.7
 * Added total_discount for a `line_item` in basket and transaction; it's useful to calculate average product cost when complicated sales discount rule applied.
 
