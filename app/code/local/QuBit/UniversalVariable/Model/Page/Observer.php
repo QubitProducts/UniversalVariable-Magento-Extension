@@ -237,7 +237,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     if ($email) $this->_user['email'] = $email;
     $user_id = $user->getEntityId();
     if ($user_id) $this->_user['user_id'] = $user_id;
-    $this->_user['returning'] = $this->_user['id'] ? true : false;
+    $this->_user['returning'] = $this->_user['user_id'] ? true : false;
     // Buggy - doesn't update
     //$this->_user['language'] = Mage::app()->getLocale()->getLocaleCode();
   }
