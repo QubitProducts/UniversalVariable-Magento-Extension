@@ -21,6 +21,9 @@ The extension is released under Apache License 2.0
 
 ## Changelog
 
+### 1.0.11
+* Removed support for the `listing` variable; it's difficult to get all the correct parameters and server intensive
+
 ### 1.0.10
 * when voucher code is not used, use empty string intead of null
 

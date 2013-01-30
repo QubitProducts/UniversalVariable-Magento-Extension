@@ -33,17 +33,17 @@
   window.universal_variable.magento_version = <?php echo json_encode($magento_version) ?>;
   window.universal_variable.page            = <?php echo json_encode($page); ?>;
   window.universal_variable.user            = <?php echo json_encode($user); ?>;
-  <?php if ($product) :?>
-  window.universal_variable.product = <?php echo json_encode($product) ?>;
+  <?php if ($product) : ?>
+  window.universal_variable.product         = <?php echo json_encode($product) ?>;
   <?php endif; ?>
-  <?php if ($basket) :?>
-  window.universal_variable.basket  = <?php echo json_encode($basket) ?>;
+  <?if ($basket) : ?>
+  window.universal_variable.basket          = <?php echo json_encode($basket) ?>;
   <?php endif; ?>
-  <?php if ($listing) :?>
-  window.universal_variable.listing = <?php echo json_encode($listing) ?>;
+  <?php if ($listing): ?>
+  window.universal_variable.listing         = <?php echo json_encode($listing) ?>;
   <?php endif; ?>
-  <?php if ($transaction) :?>
-  window.universal_variable.transaction = <?php echo json_encode($transaction) ?>;
+  <?php if ($transaction): ?>
+  window.universal_variable.transaction     = <?php echo json_encode($transaction) ?>;
   <?php endif; ?>
 </script>
 <!-- Universal Variable End -->
