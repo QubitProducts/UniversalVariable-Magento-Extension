@@ -36,7 +36,7 @@
   <?php if ($product) : ?>
   window.universal_variable.product         = <?php echo json_encode($product) ?>;
   <?php endif; ?>
-  <?if ($basket) : ?>
+  <?php if ($basket) : ?>
   window.universal_variable.basket          = <?php echo json_encode($basket) ?>;
   <?php endif; ?>
   <?php if ($listing): ?>
