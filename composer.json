@@ -1,0 +1,14 @@
+{
+    "name": "qubit/universalvariable",
+    "type": "magento-module",
+    "description":"QuBit Universal Variable is our suggested way to structure the data presented on your pages. Affiliates, remarking or advertising tags become easier to implement. (https://github.com/QubitProducts/UniversalVariable-Magento-Extension)",
+    "license": "Apache-2.0",
+    "authors":[
+        {
+            "name":"Jing Dong"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
