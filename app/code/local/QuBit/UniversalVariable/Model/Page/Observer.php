@@ -301,7 +301,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
 
-  public function _getLineItems($items) {
+  public function _getLineItems($items, $page_type) {
     $line_items = array();
     foreach($items as $item) {
       $productId = $item->getProductId();
@@ -310,9 +310,17 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       if ($product->isVisibleInSiteVisibility()) {
         $litem_model             = array();
         $litem_model['product']  = $this->_getProductModel($product);
-        $litem_model['quantity'] = (float) $item->getQtyOrdered();
+        
+        
         $litem_model['subtotal'] = (float) $item->getRowTotalInclTax();
         $litem_model['total_discount'] = (float) $item->getDiscountAmount();
+
+        if ($page_type == 'basket') {
+          $litem_model['quantity'] = (float) $item->getQty();
+        } else {
+          $litem_model['quantity'] = (float) $item->getQtyOrdered();
+        }
+
         array_push($line_items, $litem_model);
       }
     }
@@ -363,7 +371,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
     // Line items
     $items = $quote->getAllItems();
-    $basket['line_items'] = $this->_getLineItems($items);
+    $basket['line_items'] = $this->_getLineItems($items, 'basket');
 
     $this->_basket = $basket;
   }
@@ -414,7 +422,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
       // Get items
       $items                     = $order->getAllItems();
-      $line_items                = $this->_getLineItems($items);
+      $line_items                = $this->_getLineItems($items, 'transaction');
       $transaction['line_items'] = $line_items;
       
       $this->_transaction = $transaction;
