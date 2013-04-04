@@ -1,4 +1,4 @@
-app/code/local/Qubit/UniversalVariable/                 app/code/local/Qubit/UniversalVariable/
-app/design/frontend/default/default/layout/qubit/       app/design/frontend/default/default/layout/qubit/
-app/design/frontend/default/default/template/qubit/      app/design/frontend/default/default/template/qubit/
-app/etc/modules/QuBit_all.xml                           app/etc/modules/QuBit_all.xml
+app/code/community/Qubit/UniversalVariable/          app/code/community/Qubit/UniversalVariable/
+app/design/frontend/base/default/layout/qubit/       app/design/frontend/base/default/layout/qubit/
+app/design/frontend/base/default/template/qubit/     app/design/frontend/base/default/template/qubit/
+app/etc/modules/QuBit_all.xml                        app/etc/modules/QuBit_all.xml

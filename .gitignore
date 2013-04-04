@@ -8,30 +8,30 @@
 !app/etc/modules/QuBit_all.xml
 
 !app/code/
-!app/code/local/
+!app/code/community/
 
-!app/code/local/QuBit/
-!app/code/local/QuBit/UniversalVariable/
-!app/code/local/QuBit/UniversalVariable/*
-!app/code/local/QuBit/UniversalVariable/*/*
-!app/code/local/QuBit/UniversalVariable/*/*/*
-!app/code/local/QuBit/UniversalVariable/*/*/*/*
-!app/code/local/QuBit/UniversalVariable/*/*/*/*/*
+!app/code/community/QuBit/
+!app/code/community/QuBit/UniversalVariable/
+!app/code/community/QuBit/UniversalVariable/*
+!app/code/community/QuBit/UniversalVariable/*/*
+!app/code/community/QuBit/UniversalVariable/*/*/*
+!app/code/community/QuBit/UniversalVariable/*/*/*/*
+!app/code/community/QuBit/UniversalVariable/*/*/*/*/*
 
 !app/design/
 !app/design/frontend/
-!app/design/frontend/default/
-!app/design/frontend/default/default/
-!app/design/frontend/default/default/layout/
-!app/design/frontend/default/default/layout/qubit/
-!app/design/frontend/default/default/layout/qubit/*
-!app/design/frontend/default/default/layout/qubit/*/*
-!app/design/frontend/default/default/layout/qubit/*/*/*
-!app/design/frontend/default/default/template/
-!app/design/frontend/default/default/template/qubit/
-!app/design/frontend/default/default/template/qubit/*
-!app/design/frontend/default/default/template/qubit/*/*
-!app/design/frontend/default/default/template/qubit/*/*/*
+!app/design/frontend/base/
+!app/design/frontend/base/default/
+!app/design/frontend/base/default/layout/
+!app/design/frontend/base/default/layout/qubit/
+!app/design/frontend/base/default/layout/qubit/*
+!app/design/frontend/base/default/layout/qubit/*/*
+!app/design/frontend/base/default/layout/qubit/*/*/*
+!app/design/frontend/base/default/template/
+!app/design/frontend/base/default/template/qubit/
+!app/design/frontend/base/default/template/qubit/*
+!app/design/frontend/base/default/template/qubit/*/*
+!app/design/frontend/base/default/template/qubit/*/*/*
 
 !README.md
 !LICENSE.txt
