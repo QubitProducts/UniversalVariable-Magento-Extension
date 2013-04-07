@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class QuBit_UniversalVariable_Model_Page_Observer {
 
@@ -73,7 +73,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   protected function _getOrderAddress() {
     return Mage::getModel('sales/order_address');
   }
-  
+
 
   /*
    * Creates  Block View
@@ -154,7 +154,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     // somecheckout systems has different prefix/postfix,
     // but all contains checkout
     if (strpos($this->_getModuleName(), 'checkout') !== false && $this->_getActionName() == "success") {
-      return true; 
+      return true;
     } else {
       return false;
     }
@@ -229,21 +229,32 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     $this->_page['category'] = $this->_getPage();
   }
 
-  // Set the user info 
+  // Set the user info
   public function _setUser() {
     $this->_user = array();
     $user    = $this->_getCustomer();
-    $email   = $user->getEmail();
     $user_id = $user->getEntityId();
-    if ($email) {
-      $this->_user['email'] = $email; 
+
+    if ($this->_isConfirmation()) {
+      $orderId = $this->_getCheckoutSession()->getLastOrderId();
+      if ($orderId) {
+        $order = $this->_getSalesOrder()->load($orderId);
+        $email = $order->getCustomerEmail();
+      }
+    } else {
+      $email = $user->getEmail();
     }
+
+    if ($email) {
+      $this->_user['email'] = $email;
+    }
+
     if ($user_id) {
       $this->_user['user_id'] = $user_id;
     }
     $this->_user['returning'] = $user_id ? true : false;
     $this->_user['language']  = Mage::getStoreConfig('general/locale/code', Mage::app()->getStore()->getId());;
-    
+
   }
 
   public function _getAddress($address) {
@@ -289,7 +300,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       foreach ($cats as $category_id) {
         $_cat = $this->_getCategory($category_id);
         $category_names[] = $_cat->getName();
-      } 
+      }
       if (is_array($category_names) and !empty($category_names)) {
         return implode(', ', $category_names);
       } else {
@@ -310,8 +321,8 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       if ($product->isVisibleInSiteVisibility()) {
         $litem_model             = array();
         $litem_model['product']  = $this->_getProductModel($product);
-        
-        
+
+
         $litem_model['subtotal'] = (float) $item->getRowTotalInclTax();
         $litem_model['total_discount'] = (float) $item->getDiscountAmount();
 
@@ -333,10 +344,10 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $category = $this->_getCurrentCategory();
     } elseif ($this->_isSearch()) {
       $category = $this->_getCatalogSearch();
-      if (isset($_GET['q'])) { 
+      if (isset($_GET['q'])) {
         $this->_listing['query'] = $_GET['q'];
       }
-    } 
+    }
   }
 
   public function _setProduct() {
@@ -346,7 +357,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   public function _setBasket() {
-    // Get from different model depending on page 
+    // Get from different model depending on page
     if ($this->_isBasket()) {
       $cart = $this->_getCheckoutCart();
     } elseif ($this->_isCheckout()) {
@@ -358,7 +369,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
     // Set normal params
     $basket_id = $this->_getCheckoutSession()->getQuoteId();
-    if ($basket_id) { 
+    if ($basket_id) {
       $basket['id'] = $basket_id;
     }
     $basket['currency']             = $this->_getCurrency();
@@ -402,12 +413,12 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $transaction['subtotal_include_tax'] = $this->_doesSubtotalIncludeTax($order);
       $transaction['payment_type']         = $order->getPayment()->getMethodInstance()->getTitle();
       $transaction['total']                = (float) $order->getGrandTotal();
-      
+
       $voucher                             = $order->getCouponCode();
       $transaction['voucher']              = $voucher ? $voucher : "";
       $voucher_discount                    = -1 * $order->getDiscountAmount();
       $transaction['voucher_discount']     = $voucher_discount ? $voucher_discount : 0;
-    
+
       $transaction['tax']             = (float) $order->getTax();
       $transaction['shipping_cost']   = (float) $order->getShippingAmount();
       $transaction['shipping_method'] = $order->getShippingMethod();
@@ -424,7 +435,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $items                     = $order->getAllItems();
       $line_items                = $this->_getLineItems($items, 'transaction');
       $transaction['line_items'] = $line_items;
-      
+
       $this->_transaction = $transaction;
     }
   }
@@ -449,7 +460,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $this->_setBasket();
     }
 
-    if ($this->_isConfirmation()) { 
+    if ($this->_isConfirmation()) {
       $this->_setTranscation();
     }
 
