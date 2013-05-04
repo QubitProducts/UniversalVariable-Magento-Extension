@@ -73,7 +73,16 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   protected function _getOrderAddress() {
     return Mage::getModel('sales/order_address');
   }
-
+  
+  protected function _getCategoryProducts($categoryID) {
+        $products = Mage::getModel('catalog/category')->load($categoryID)
+                ->getProductCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+                ->addAttributeToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+                ->setOrder('price', 'ASC');
+        return $products;
+    }
 
   /*
    * Creates  Block View
@@ -338,17 +347,26 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     return $line_items;
   }
 
-  public function _setListing() {
-    $this->_listing = array();
-    if ($this->_isCategory()) {
-      $category = $this->_getCurrentCategory();
-    } elseif ($this->_isSearch()) {
-      $category = $this->_getCatalogSearch();
-      if (isset($_GET['q'])) {
-        $this->_listing['query'] = $_GET['q'];
-      }
+    public function _setListing() {
+        $this->_listing = array();
+        $productArray = array();
+        if ($this->_isCategory()) {
+            $category = $this->_getCurrentCategory();
+            $products = $this->_getCategoryProducts($category->getId());
+            foreach ($products as $product) {
+                array_push($productArray, $this->_getProductModel($product));
+            }
+            $this->_listing['items'] = $productArray;
+        } elseif ($this->_isSearch()) {
+            //TODO: work out how to do category search
+            $category = $this->_getCatalogSearch();
+        }
+        if ($this->_isSearch()) {
+            if (isset($_GET['q'])) {
+                $this->_listing['query'] = $_GET['q'];
+            }
+        }
     }
-  }
 
   public function _setProduct() {
     $product  = $this->_getCurrentProduct();
