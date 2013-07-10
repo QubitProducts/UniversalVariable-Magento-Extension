@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
-      <reference name="head">
+      <reference name="before_body_end"> <!-- changed to footer because of event load order -->
         <block type="core/template" name="universal_variable" as="universal_variable" template="qubit/universal_variable.phtml"/>
       </reference>
     </default>
