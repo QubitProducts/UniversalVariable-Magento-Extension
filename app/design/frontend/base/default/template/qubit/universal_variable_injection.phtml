@@ -1,0 +1,21 @@
+<?php
+  $qubit_universal_variable_enabled         = Mage::getStoreConfig('qubit/qubit_universal_variable_enabled');
+
+  $observer = 'universal_variable_main/observer';
+  $mage = Mage::getSingleton($observer);
+
+?>
+
+<?php if ($qubit_universal_variable_enabled == 1) :?>
+<?php
+  // extract variable only when universal variable is enabled 
+  $listing         = $mage->getListing();
+?>
+<!-- Universal Variable Start -->
+<?php if ($listing): ?>
+<script type="text/javascript">
+  window.universal_variable.listing         = <?php echo json_encode($listing) ?>;
+</script>
+<?php endif; ?>
+<!-- Universal Variable End -->
+<?php endif;?>

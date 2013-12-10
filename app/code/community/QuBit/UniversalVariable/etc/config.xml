@@ -30,6 +30,15 @@
             </QuBit_UniversalVariable_Model_Page_Observer>
           </observers>
         </controller_action_layout_load_before>
+        <catalog_block_product_list_collection>
+          <observers>
+            <QuBit_UniversalVariable_Model_Page_Observer>
+                <type>singleton</type>
+                <class>universal_variable_main/observer</class>
+                <method>setCatalogProductListing</method>
+            </QuBit_UniversalVariable_Model_Page_Observer>
+          </observers>
+        </catalog_block_product_list_collection>
       </events>
       <blocks>
           <universal_variable_block>
