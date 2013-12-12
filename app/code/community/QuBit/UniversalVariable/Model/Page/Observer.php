@@ -324,15 +324,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   public function _setListing() {
-    $this->_listing = array();
-    if ($this->_isCategory()) {
-      $category = $this->_getCurrentCategory();
-    } elseif ($this->_isSearch()) {
-      $category = $this->_getCatalogSearch();
-      if (isset($_GET['q'])) {
-        $this->_listing['query'] = $_GET['q'];
-      }
-    }
+    $this->_listing = Mage::helper('universal_variable_main/catalog')->getListingUvArray();
   }
 
   public function _setProduct() {

@@ -59,6 +59,20 @@ class QuBit_UniversalVariable_Helper_Catalog extends QuBit_UniversalVariable_Hel
         return $this->_getProductModel($product);
     }
     /**
+     * @return array
+     */
+    public function getListingUvArray()
+    {
+        $info = array();
+        if ($this->isSearch()) {
+            $query    = Mage::app()->getRequest()->getParam('q', false);
+            if (isset($query)) {
+                $info['query'] = $query;
+            }
+        }
+        return $info;
+    }
+    /**
      * get product model
      * @param Mage_Catalog_Model_Product $product
      * @return array
