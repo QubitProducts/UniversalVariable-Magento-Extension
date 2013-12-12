@@ -242,30 +242,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
   // Set the user info
   public function _setUser() {
-    $this->_user = array();
-    $user    = $this->_getCustomer();
-    $user_id = $user->getEntityId();
-
-    if ($this->_isConfirmation()) {
-      $orderId = $this->_getCheckoutSession()->getLastOrderId();
-      if ($orderId) {
-        $order = $this->_getSalesOrder()->load($orderId);
-        $email = $order->getCustomerEmail();
-      }
-    } else {
-      $email = $user->getEmail();
-    }
-
-    if ($email) {
-      $this->_user['email'] = $email;
-    }
-
-    if ($user_id) {
-      $this->_user['user_id'] = (string) $user_id;
-    }
-    $this->_user['returning'] = $user_id ? true : false;
-    $this->_user['language']  = Mage::getStoreConfig('general/locale/code', Mage::app()->getStore()->getId());;
-
+    $this->_user = Mage::helper('universal_variable_main/customer')->getUvArray();
   }
 
   public function _getAddress($address) {
