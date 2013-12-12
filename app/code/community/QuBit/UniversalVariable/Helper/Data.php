@@ -196,4 +196,11 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getRequest()->getActionName();
     }
+    /**
+     * get store currency code
+     * @return str
+     */
+    protected function _getStoreCurrency() {
+        return Mage::app()->getStore()->getCurrentCurrencyCode();
+    }
 }

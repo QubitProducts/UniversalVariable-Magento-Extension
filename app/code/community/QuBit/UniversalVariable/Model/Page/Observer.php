@@ -336,9 +336,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   public function _setProduct() {
-    $product  = $this->_getCurrentProduct();
-    if (!$product) return false;
-    $this->_product = $this->_getProductModel($product);
+    $this->_product = Mage::helper('universal_variable_main/catalog')->getCurrentProductUvArray();
   }
 
   public function _setBasket() {
