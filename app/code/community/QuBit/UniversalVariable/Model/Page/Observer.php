@@ -231,13 +231,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   public function _setPage() {
-    $this->_page = array();
-    $this->_page['type'] = $this->_getPageType();
-    // WARNING: `page.category` will be deprecated in the next release
-    //          We will follow the specification that uses `page.type`
-    //          Please migrate any frontend JavaScripts using this `universal_variable.page.category` variable
-    $this->_page['category'] = $this->_page['type'];
-    $this->_page['breadcrumb'] = $this->_getPageBreadcrumb();
+    $this->_page = Mage::helper('universal_variable_main')->getPageUvArray();
   }
 
   // Set the user info
