@@ -332,33 +332,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   public function _setBasket() {
-    $cart = $this->_getCheckoutSession();
-    
-    if (!isset($cart)) {
-      return;
-    }
-
-    $basket = array();
-    $quote = $cart->getQuote();
-
-    // Set normal params
-    $basket_id = $this->_getCheckoutSession()->getQuoteId();
-    if ($basket_id) {
-      $basket['id'] = (string) $basket_id;
-    }
-    $basket['currency']             = $this->_getCurrency();
-    $basket['subtotal']             = (float) $quote->getSubtotal();
-    $basket['tax']                  = (float) $quote->getShippingAddress()->getTaxAmount();
-    $basket['subtotal_include_tax'] = (boolean) $this->_doesSubtotalIncludeTax($quote, $basket['tax']);
-    $basket['shipping_cost']        = (float) $quote->getShippingAmount();
-    $basket['shipping_method']      = $quote->getShippingMethod();
-    $basket['total']                = (float) $quote->getGrandTotal();
-
-    // Line items
-    $items = $quote->getAllItems();
-    $basket['line_items'] = $this->_getLineItems($items, 'basket');
-
-    $this->_basket = $basket;
+    $this->_basket = Mage::helper('universal_variable_main/cart')->getCartUvArray();
   }
 
   public function _doesSubtotalIncludeTax($order, $tax) {
@@ -377,41 +351,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   public function _setTranscation() {
     $orderId = $this->_getCheckoutSession()->getLastOrderId();
     if ($orderId) {
-      $transaction = array();
-      $order       = $this->_getSalesOrder()->load($orderId);
-
-      // Get general details
-      $transaction['order_id']             = $order->getIncrementId();
-      $transaction['currency']             = $this->_getCurrency();
-      $transaction['subtotal']             = (float) $order->getSubtotal();
-      $transaction['tax']                  = (float) $order->getTaxAmount();
-      $transaction['subtotal_include_tax'] = $this->_doesSubtotalIncludeTax($order, $transaction['tax']);
-      $transaction['payment_type']         = $order->getPayment()->getMethodInstance()->getTitle();
-      $transaction['total']                = (float) $order->getGrandTotal();
-
-      $voucher                             = $order->getCouponCode();
-      $transaction['voucher']              = $voucher ? $voucher : "";
-      $voucher_discount                    = -1 * $order->getDiscountAmount();
-      $transaction['voucher_discount']     = $voucher_discount ? $voucher_discount : 0;
-
-      
-      $transaction['shipping_cost']   = (float) $order->getShippingAmount();
-      $transaction['shipping_method'] = $order->getShippingMethod();
-
-      // Get addresses
-      $shippingId        = $order->getShippingAddress()->getId();
-      $address           = $this->_getOrderAddress()->load($shippingId);
-      $billingAddress    = $order->getBillingAddress();
-      $shippingAddress   = $order->getShippingAddress();
-      $transaction['billing']  = $this->_getAddress($billingAddress);
-      $transaction['delivery'] = $this->_getAddress($shippingAddress);
-
-      // Get items
-      $items                     = $order->getAllItems();
-      $line_items                = $this->_getLineItems($items, 'transaction');
-      $transaction['line_items'] = $line_items;
-
-      $this->_transaction = $transaction;
+      $this->_transaction = Mage::helper('universal_variable_main/cart')->getTransactionUvArray();
     }
   }
 
@@ -421,10 +361,6 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
     if ($this->_isProduct()) {
       $this->_setProduct();
-    }
-
-    if ($this->_isCategory()) {
-      $this->_setListing();
     }
 
     if ($this->_isCategory() || $this->_isSearch()) {
