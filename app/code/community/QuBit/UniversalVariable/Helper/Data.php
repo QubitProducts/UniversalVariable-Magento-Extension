@@ -2,6 +2,42 @@
 
 class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_version = '1.2';
+    /**
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->_version;
+    }
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return Mage::getStoreConfigFlag('qubit/qubit_universal_variable_enabled');
+    }
+    /**
+     * @return boolean
+     */
+    public function opentagEnabled()
+    {
+        return Mage::getStoreConfigFlag('qubit/qubit_opentag_enabled');
+    }
+    /**
+     * @return str
+     */
+    public function getOpentagContainerId()
+    {
+        return Mage::getStoreConfig('qubit/qubit_opentag_container_id');
+    }
+    /**
+     * @return boolean
+     */
+    public function isOpentagAsync()
+    {
+        return Mage::getStoreConfigFlag('qubit/qubit_opentag_async');
+    }
     /**
      * @todo refactor to try and get path from breadcrumb block, if it exists instead 
      */

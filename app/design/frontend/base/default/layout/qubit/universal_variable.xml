@@ -2,7 +2,9 @@
 <layout version="0.1.0">
     <default>
       <reference name="head">
-        <block type="universal_variable_main/uv" name="universal_variable" as="universal_variable" template="qubit/universal_variable.phtml"/>
+        <block type="universal_variable_main/uv" name="universal_variable" as="universal_variable" template="qubit/universal_variable.phtml">
+            <block type="universal_variable_main/uv" name="universal_variable_session_data" as="universal_variable_session_data" template="qubit/universal_variable_session_data.phtml"/>
+        </block>
       </reference>
     </default>
 </layout>
