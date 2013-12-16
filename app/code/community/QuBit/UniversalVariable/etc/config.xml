@@ -34,17 +34,6 @@
           </qubit_universal_variable>
         </updates>
       </layout>
-      <events>
-        <controller_action_layout_load_before>
-          <observers>
-            <QuBit_UniversalVariable_Model_Page_Observer>
-              <type>singleton</type>
-              <class>universal_variable_main/page_observer</class>
-              <method>setUniversalVariable</method>
-            </QuBit_UniversalVariable_Model_Page_Observer>
-          </observers>
-        </controller_action_layout_load_before>
-      </events>
     </frontend>
 
     <!-- Admin Configuration Default Values -->

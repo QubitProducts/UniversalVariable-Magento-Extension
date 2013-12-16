@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @deprecated
+ */
 class QuBit_UniversalVariable_Model_Page_Observer {
 
   // This is the UV specification Version
