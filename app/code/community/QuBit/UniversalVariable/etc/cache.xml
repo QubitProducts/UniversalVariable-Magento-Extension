@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <placeholders>
+        <qubit_uv_session_data>
+            <block>universal_variable_main/uv</block>
+            <name>universal_variable_session_data</name>
+            <placeholder>UV_SESSION</placeholder>
+            <container>QuBit_UniversalVariable_Model_Container_Uv</container>
+        </qubit_uv_session_data>
+    </placeholders>
+</config>
