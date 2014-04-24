@@ -35,15 +35,14 @@
         </updates>
       </layout>
       <events>
-        <controller_action_layout_load_before>
-          <observers>
-            <QuBit_UniversalVariable_Model_Page_Observer>
-              <type>singleton</type>
-              <class>universal_variable_main/page_observer</class>
-              <method>setUniversalVariable</method>
-            </QuBit_UniversalVariable_Model_Page_Observer>
+        <sales_quote_save_after>
+            <observers>
+              <qubit_universal_variable>
+              <class>universal_variable_main/observer</class>
+              <method>registerQuoteChange</method>
+            </qubit_universal_variable>
           </observers>
-        </controller_action_layout_load_before>
+        </sales_quote_save_after>
       </events>
     </frontend>
 

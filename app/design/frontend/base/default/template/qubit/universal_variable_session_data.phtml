@@ -1,0 +1,21 @@
+<?php
+/* @var $this QuBit_UniversalVariable_Block_Uv */
+$_helper = $this->_getHelper();
+if ($_helper->isEnabled()):
+    /* @var $_customerHelper QuBit_UniversalVariable_Helper_Customer */
+    $_customerHelper = Mage::helper('universal_variable_main/customer');
+    /* @var $_cartHelper QuBit_UniversalVariable_Helper_Cart */
+    $_cartHelper    = Mage::helper('universal_variable_main/cart');
+    $_user          = $_customerHelper->getUvArray();
+?>
+<!-- Universal Variable Session Data Start-->
+<script type="text/javascript">
+window.universal_variable.user            = <?php echo json_encode($_user); ?>;
+<?php if ($_helper->isConfirmation()): ?>
+window.universal_variable.transaction     = <?php echo json_encode($_cartHelper->getTransactionUvArray()) ?>;
+<?php else:?>
+window.universal_variable.basket          = <?php echo json_encode($_cartHelper->getCartUvArray()) ?>;
+<?php endif; ?>
+</script>
+<!-- Universal Variable Session Data End-->
+<?php endif;?>
