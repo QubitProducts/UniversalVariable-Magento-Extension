@@ -1,5 +1,8 @@
 ## Changelog
 
+### 1.0.22 [:arrow_down: Download](https://github.com/QubitProducts/UniversalVariable-Magento-Extension/archive/1.0.22.zip)
+* When shipping method is not provided, export as empty string instead of null. #39
+
 ### 1.0.21 [:arrow_down: Download](https://github.com/QubitProducts/UniversalVariable-Magento-Extension/archive/1.0.21.zip)
 * Apply voucher discount on top of product unit_sale_price. #35
 
