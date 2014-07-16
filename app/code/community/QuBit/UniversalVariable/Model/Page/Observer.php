@@ -451,12 +451,15 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $transaction['shipping_method'] = $this->_extractShippingMethod($order);
 
       // Get addresses
-      $shippingId        = $order->getShippingAddress()->getId();
-      $address           = $this->_getOrderAddress()->load($shippingId);
+      if (method_exists($order,'getShippingAddress')) {
+        $shippingId        = $order->getShippingAddress()->getId();
+        $shippingAddress   = $order->getShippingAddress();
+        $transaction['delivery'] = $this->_getAddress($shippingAddress);
+        $address           = $this->_getOrderAddress()->load($shippingId);
+      }
+
       $billingAddress    = $order->getBillingAddress();
-      $shippingAddress   = $order->getShippingAddress();
       $transaction['billing']  = $this->_getAddress($billingAddress);
-      $transaction['delivery'] = $this->_getAddress($shippingAddress);
 
       // Get items
       $items                     = $order->getAllItems();
