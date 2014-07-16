@@ -6,6 +6,28 @@
       </QuBit_UniversalVariable>
     </modules>
 
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <universalvariable_options>
+                                            <title>UV Module Section</title>
+                                        </universalvariable_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
     <global>
       <models>
           <universal_variable_main>
