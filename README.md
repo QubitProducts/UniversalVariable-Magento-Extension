@@ -37,6 +37,7 @@ Thank you to the contributors improving our code base:
 * Robert Coleman [@rjocoleman](https://github.com/rjocoleman)
 * beeplogic [@rgranadino](https://github.com/rgranadino)
 * Rudger [@Rud5G](https://github.com/Rud5G)
+* rogy [@rogy](https://github.com/rogy)
 
 ## License
 
