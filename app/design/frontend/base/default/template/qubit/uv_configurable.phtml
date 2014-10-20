@@ -1,0 +1,53 @@
+<?php
+
+  $qubit_universal_variable_enabled = Mage::getStoreConfig('qubit/qubit_universal_variable_enabled');
+
+  $observer = 'universal_variable_main/page_observer';
+  $mage = Mage::getSingleton($observer);
+
+?>
+
+<?php if ($qubit_universal_variable_enabled == 1) :?>
+	<?php
+	  // extract variable only when universal variable is enabled 
+	  $opts = $mage->getCustomOptions();
+	?>
+
+	<?php if ($opts): ?>
+		<!-- Qubit Configurable JS Start -->
+		<script type="text/javascript">
+			// ie 9 < shim
+			if (!Object.keys) {
+		    Object.keys = function (obj) {
+		        var keys = [],
+		            k;
+		        for (k in obj) {
+		            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+		                keys.push(k);
+		            }
+		        }
+		        return keys;
+		    };
+			}
+
+			var configurable_object = <?php echo json_encode($opts); ?>;
+
+			document.observe('dom:loaded', function() {
+
+				function updateUniversalVariable(id, value) {
+					var shortId = id.replace('attribute','');
+					universal_variable.product.sku_code = configurable_object[shortId][value][0];
+				  universal_variable.product.stock = configurable_object[shortId][value][1];
+				  universal_variable.product.unit_sale_price = configurable_object[shortId][value][2];
+				}
+				$$('.super-attribute-select').each(function(item) {
+	        Event.observe(item,'change', function(){
+	        	updateUniversalVariable(item.id, item.value);
+	        });
+				});
+			});
+			
+		</script>
+		<!-- Qubit Configurable JS End -->
+	<?php endif; ?>
+<?php endif;?>

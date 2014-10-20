@@ -5,4 +5,9 @@
         <block type="universal_variable_main/uv" name="universal_variable" as="universal_variable" template="qubit/universal_variable.phtml"/>
       </reference>
     </default>
+    <catalog_product_view>
+    	<reference name="head">
+     		<block type="universal_variable_main/uv" name="uv_configurable" as="uv_configurable" template="qubit/uv_configurable.phtml"/>
+    	</reference>
+ 		</catalog_product_view>
 </layout>

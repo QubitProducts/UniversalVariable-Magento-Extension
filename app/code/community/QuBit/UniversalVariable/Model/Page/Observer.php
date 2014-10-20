@@ -62,7 +62,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   }
 
   protected function _getCatalogSearch() {
-    return Mage::getSingleton('catalogsearch/advanced');
+    return Mage::getSingleton('catalogsearch/layer');
   }
 
   protected function _getCheckoutSession() {
@@ -172,6 +172,11 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
   public function getProduct() {
     return $this->_product;
+  }
+
+  public function getCustomOptions() {
+    $product  = $this->_getCurrentProduct();
+    return $this->_getCustomOptions($product);
   }
 
   public function getBasket() {
@@ -290,8 +295,54 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     return Mage::app()->getStore()->getCurrentCurrencyCode();
   }
 
+  public function _getCustomOptions($product) {
+
+    // if product isn't configurable, skip
+    if (!$product->isConfigurable()) {
+      return false;
+    }
+
+    // set configurable product model
+    $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($product);
+
+    // get sub products of the configurable 
+    $col = $conf->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+
+    // get configurable product option attributes
+    $productAttributeOptions = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+
+    // set up object
+    $customOptsArray = new stdClass();
+
+    // for each configurable attribute
+    foreach ($productAttributeOptions as $productAttribute) {
+      $elementArray = new stdClass();
+
+      // for each value in configurable attribute
+      foreach ($productAttribute['values'] as $attribute) {
+        // for each sub product 
+        foreach($col as $simple_product){
+          $optionArray = array();
+
+          // if this product has the attribute value of the currrent configurable attribute that matches the current attribute value
+          if ($attribute['default_label'] == $simple_product->getAttributeText($productAttribute['attribute_code'])) {
+            // push sub-product stock and sku into object
+            $elementArray->$attribute['value_index'] = array($simple_product->getSku(), 
+                                                            intval(Mage::getModel('cataloginventory/stock_item')->loadByProduct($simple_product)->getQty()),
+                                                            intval($simple_product->getPrice()));
+          }
+        }
+      }
+      // push all configurable options with the matching SKU and stock values into an object
+      $customOptsArray->$productAttribute['attribute_id'] = $elementArray;
+    }
+    // return object of all configurable options with attaches attribute values and the relevant product data
+    return $customOptsArray;
+  }
+
   public function _getProductModel($product) {
     $product_model = array();
+
     $product_model['id']       = $product->getId();
     $product_model['sku_code'] = $product->getSku();
     $product_model['url']      = $product->getProductUrl();
@@ -331,12 +382,30 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     $line_items = array();
     foreach($items as $item) {
       $productId = $item->getProductId();
+      
+      $subProductSku = null;
+      $subProductStock = null;
+      $subProductSalePrice = null;
+      if ($option = $item->getOptionByCode('simple_product')) {
+        $subProductSku = $option->getProduct()->getSku();
+        $subProductStock = intval(Mage::getModel('cataloginventory/stock_item')->loadByProduct($option->getProduct())->getQty());
+        $subProductSalePrice = $option->getProduct()->getPrice();
+      }
+
       $product   = $this->_getProduct($productId);
       // product needs to be visible
       if ($product->isVisibleInSiteVisibility()) {
         $litem_model             = array();
         $litem_model['product']  = $this->_getProductModel($product);
 
+        if ($subProductSku != null) {
+          $litem_model['product']['sku_code'] = $subProductSku;
+        }
+        if ($subProductStock != null) {
+          $litem_model['product']['stock'] = $subProductStock;
+        }
+        
+        $litem_model['product']['unit_sale_price'] = $item->getBasePrice();
 
         $litem_model['subtotal'] = (float) $item->getRowTotalInclTax();
         $litem_model['total_discount'] = (float) $item->getDiscountAmount();
@@ -362,14 +431,24 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
   public function _setListing() {
     $this->_listing = array();
+    $items = array();
     if ($this->_isCategory()) {
       $category = $this->_getCurrentCategory();
     } elseif ($this->_isSearch()) {
       $category = $this->_getCatalogSearch();
       if (isset($_GET['q'])) {
-        $this->_listing['query'] = $_GET['q'];
+        $listing['query'] = $_GET['q'];
       }
     }
+    $collection = $category->getProductCollection()
+                           ->addAttributeToSelect('*')
+                           ->addAttributeToFilter('status', 1)
+                           ->addAttributeToFilter('visibility', 4);
+    foreach ($collection as $product) {
+      array_push($items, $this->_getProductModel($product));
+    }
+    $listing['items'] = $items;
+    $this->_listing = $listing;
   }
 
   public function _setProduct() {
@@ -442,7 +521,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
       $transaction['total']                = (float) $order->getGrandTotal();
 
       $voucher                             = $order->getCouponCode();
-      $transaction['voucher']              = $voucher ? $voucher : "";
+      $transaction['voucher']              = $voucher ? array($voucher) : "";
       $voucher_discount                    = -1 * $order->getDiscountAmount();
       $transaction['voucher_discount']     = $voucher_discount ? $voucher_discount : 0;
 
@@ -476,10 +555,6 @@ class QuBit_UniversalVariable_Model_Page_Observer {
 
     if ($this->_isProduct()) {
       $this->_setProduct();
-    }
-
-    if ($this->_isCategory()) {
-      $this->_setListing();
     }
 
     if ($this->_isCategory() || $this->_isSearch()) {
