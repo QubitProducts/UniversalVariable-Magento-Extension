@@ -330,10 +330,13 @@ class QuBit_UniversalVariable_Model_Page_Observer {
   public function _getLineItems($items, $page_type) {
     $line_items = array();
     foreach($items as $item) {
-      $productId = $item->getProductId();
+      if ($option = $item->getOptionByCode('simple_product')) {  
+        $productId = $option->getProduct()->getId(); 
+      } else {
+        $productId = $item->getProductId();
+      } 
       $product   = $this->_getProduct($productId);
       // product needs to be visible
-      if ($product->isVisibleInSiteVisibility()) {
         $litem_model             = array();
         $litem_model['product']  = $this->_getProductModel($product);
 
@@ -355,7 +358,6 @@ class QuBit_UniversalVariable_Model_Page_Observer {
         $litem_model['product']['unit_sale_price'] = $unit_sale_price_after_discount;
 
         array_push($line_items, $litem_model);
-      }
     }
     return $line_items;
   }
@@ -402,7 +404,7 @@ class QuBit_UniversalVariable_Model_Page_Observer {
     $basket['total']                = (float) $quote->getGrandTotal();
 
     // Line items
-    $items = $quote->getAllItems();
+    $items = $quote->getAllVisibleItems();
     $basket['line_items'] = $this->_getLineItems($items, 'basket');
 
     $this->_basket = $basket;
