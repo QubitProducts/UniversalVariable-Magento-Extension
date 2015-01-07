@@ -1,85 +1,69 @@
 <?xml version="1.0"?>
-  <config>
+<config>
     <modules>
-      <QuBit_UniversalVariable>
-        <version>1.0.0</version>
-      </QuBit_UniversalVariable>
+        <QuBit_UniversalVariable>
+            <version>1.0.22</version>
+        </QuBit_UniversalVariable>
     </modules>
 
-    <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <universalvariable_options>
-                                            <title>UV Module Section</title>
-                                        </universalvariable_options>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
-    </adminhtml>
-
     <global>
-      <models>
-          <universal_variable_main>
-            <class>QuBit_UniversalVariable_Model</class>
-          </universal_variable_main>
-      </models>
-      <helpers>
-        <universal_variable_main>
-          <class>QuBit_UniversalVariable_Helper</class>
-        </universal_variable_main>
-      </helpers>
-      <blocks>
-          <universal_variable_main>
-            <class>QuBit_UniversalVariable_Block</class>
-          </universal_variable_main>
-      </blocks>
+        <models>
+            <qubituv>
+                <class>QuBit_UniversalVariable_Model</class>
+            </qubituv>
+        </models>
+        <helpers>
+            <qubituv>
+                <class>QuBit_UniversalVariable_Helper</class>
+            </qubituv>
+        </helpers>
     </global>
 
     <frontend>
-
-      <!-- Layout -->
-      <layout>
-        <updates>
-          <qubit_universal_variable>
-            <file>qubit/universal_variable.xml</file>
-          </qubit_universal_variable>
-        </updates>
-      </layout>
-      <events>
-        <controller_action_layout_load_before>
-          <observers>
-            <QuBit_UniversalVariable_Model_Page_Observer>
-              <type>singleton</type>
-              <class>universal_variable_main/page_observer</class>
-              <method>setUniversalVariable</method>
-            </QuBit_UniversalVariable_Model_Page_Observer>
-          </observers>
-        </controller_action_layout_load_before>
-      </events>
+        <layout>
+            <updates>
+                <qubit_universal_variable>
+                    <file>qubit/uv.xml</file>
+                </qubit_universal_variable>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <QuBit_UniversalVariable>
+                    <files>
+                        <default>QuBit_UniversalVariable.csv</default>
+                    </files>
+                </QuBit_UniversalVariable>
+            </modules>
+        </translate>
+        <!-- events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <qubit_universalvariable_model_page_observer>
+                        <type>singleton</type>
+                        <class>qubituv/observer</class>
+                        <method>setUniversalVariable</method>
+                    </qubit_universalvariable_model_page_observer>
+                </observers>
+            </controller_action_layout_load_before>
+        </events -->
     </frontend>
 
-    <!-- Admin Configuration Default Values -->
     <default>
-<!--         <QuBit_UniversalVariable>
-          <QuBit_UniversalVariable_Settings>
-            <QuBit_OpenTag_Async>1</QuBit_OpenTag_Async>
-          </QuBit_UniversalVariable_Settings>
-        </QuBit_UniversalVariable> -->
-      <qubit>
-        <qubit_opentag_async>1</qubit_opentag_async>
-        <qubit_opentag_enabled>1</qubit_opentag_enabled>
-        <qubit_universal_variable_enabled>1</qubit_universal_variable_enabled>
-      </qubit>
+        <qubituv>
+            <settings>
+                <enabled>1</enabled>
+            </settings>
+            <opentag>
+                <enabled>1</enabled>
+                <container_id></container_id>
+                <async>1</async>
+            </opentag>
+            <advanced>
+                <show_product_id>0</show_product_id>
+                <show_stock_info>0</show_stock_info>
+                <show_user_id>0</show_user_id>
+            </advanced>
+        </qubituv>
     </default>
 </config>

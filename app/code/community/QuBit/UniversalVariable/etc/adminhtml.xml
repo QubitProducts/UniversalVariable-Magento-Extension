@@ -8,10 +8,10 @@
                         <children>
                             <config>
                                 <children>
-                                    <qubit_universalvariable translate="title" module="universal_variable_main">
-                                        <sort_order>0</sort_order>
-                                        <title>Manage QuBit Script</title>
-                                    </qubit_universalvariable>
+                                    <qubituv translate="title" module="qubituv">
+                                        <sort_order>1000</sort_order>
+                                        <title>Manage QuBit Universal Variable</title>
+                                    </qubituv>
                                 </children>
                             </config>
                         </children>

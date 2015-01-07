@@ -1,94 +1,125 @@
 <?xml version="1.0"?>
 <config>
 	<tabs>
-        <QuBit_tab translate="label">
-            <label>Universal Variable</label>
-            <sort_order>100</sort_order>
-        </QuBit_tab>
+        <qubituv translate="label">
+            <label>QuBit Universal Variable</label>
+            <sort_order>1000</sort_order>
+        </qubituv>
     </tabs>
 
     <sections>
-        <qubit_universalvariable translate="label">
+        <qubituv translate="label">
             <label>Configuration</label>
-            <tab>QuBit_tab</tab>
+            <tab>qubituv</tab>
             <frontend_type>text</frontend_type> 
-            <sort_order>2</sort_order>
+            <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
+
             <groups>
-                <QuBit_UniversalVariable_Settings translate="label">
+                <settings translate="label">
                     <label>Universal Variable Configuration</label>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <QuBit_UniversalVariable_Enabled translate="label">
+                        <enabled translate="label comment">
                             <label>Enable Universal Variable</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <config_path>qubit/qubit_universal_variable_enabled</config_path>    
-                            <comment><![CDATA[ Variables output on every page are based on <br/>
-                            <a href="https://github.com/QubitProducts/UniversalVariable " target="_blank">Universal Variable Specification</a> ]]></comment>
+                            <comment><![CDATA[Variables output on every page are based on <br/><a href="https://github.com/QubitProducts/UniversalVariable " target="_blank">Universal Variable Specification</a>]]></comment>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </QuBit_UniversalVariable_Enabled>
+                        </enabled>
                     </fields>
-                </QuBit_UniversalVariable_Settings>
+                </settings>
 
-            	<QuBit_OpenTag_Settings translate="label">
+            	<opentag translate="label">
                     <label>QuBit OpenTag Configuration</label>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <QuBit_OpenTag_Container translate="label">
-                            <label>Container ID</label>
-                            <frontend_type>text</frontend_type>
-                            <config_path>qubit/qubit_opentag_container_id</config_path>
-                            <comment><![CDATA[ Click 'Embed' button in OpenTag interface for the container you'd like to implement.<br/>
-Your container ID should look like 1234-56789, for example: <br/>
-&lt;script src="//d3c3cq33003psk.cloudfront.net/opentag-<strong>1234-56789</strong>.js" async defer&gt;&lt;/script&gt; <br/>
-                            You can <a href="https://opentag.qubitproducts.com/QDashboard/" target="_blank">Sign In</a> or <a href="https://opentag.qubitproducts.com/QDashboard/register.html" target="_blank"> Signup an OpenTag account</a>.
-                            ]]>
-                            </comment>                        
+                        <enabled translate="label">
+                            <label>Enable OpenTag</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </QuBit_OpenTag_Container>
+                        </enabled>
+
+                        <container_id translate="label comment">
+                            <label>Container ID</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Click 'Embed' button in OpenTag interface for the container you'd like to implement.<br/>Your container ID should look like 1234-56789, for example: <br/>&lt;script src="//d3c3cq33003psk.cloudfront.net/opentag-<strong>1234-56789</strong>.js" async defer&gt;&lt;/script&gt; <br/>You can <a href="https://opentag.qubitproducts.com/QDashboard/" target="_blank">Sign In</a> or <a href="https://opentag.qubitproducts.com/QDashboard/register.html" target="_blank">Signup for an OpenTag account</a>.]]></comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </container_id>
                         
-                        <QuBit_OpenTag_Async translate="label">
-                            <label>Asynchronous</label>
+                        <async translate="label comment">
+                            <label>Asynchronous loading</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <config_path>qubit/qubit_opentag_async</config_path>
-                            <comment><![CDATA[ Asynchronous is recommended. ]]></comment>                        
-                            <sort_order>2</sort_order>
+                            <comment><![CDATA[Asynchronous is recommended.]]></comment>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </QuBit_OpenTag_Async>
-
-                        <QuBit_OpenTag_Enabled translate="label">
-                            <label>Enable OpenTag</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <config_path>qubit/qubit_opentag_enabled</config_path>                   
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </QuBit_OpenTag_Enabled>
+                        </async>
                     </fields>
-            	   </QuBit_OpenTag_Settings>
+                </opentag>
 
+                <advanced>
+                    <label>Advanced Settings</label>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <show_product_id translate="label comment">
+                            <label>Show real product IDs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[Show the real, numerical ID of the product. If set to no, it will use the SKU. <strong>Recommended value:</strong> No]]></comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_product_id>
 
-                </groups>
-        </qubit_universalvariable>
+                        <show_stock_info translate="label comment">
+                            <label>Show stock information</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[If set to yes, it will show the stock product qty]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_stock_info>
+
+                        <show_user_id translate="label comment">
+                            <label>Show real user ID</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[Show the real, numerical ID of the user. If set to no, it will use a hash. <strong>Recommended value:</strong> No]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_user_id>
+                    </fields>
+                </advanced>
+            </groups>
+        </qubituv>
     </sections>
 </config>
