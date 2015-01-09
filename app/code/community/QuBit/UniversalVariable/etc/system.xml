@@ -117,6 +117,26 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_user_id>
+
+                        <category_product_list_block translate="label comment">
+                            <label>Product list block name on category pages</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_product_list_block>
+
+                        <search_product_list_block translate="label comment">
+                            <label>Product list block name on search result pages</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list]]></comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_product_list_block>
                     </fields>
                 </advanced>
             </groups>

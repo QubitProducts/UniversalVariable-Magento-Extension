@@ -2,7 +2,7 @@
 <config>
     <modules>
         <QuBit_UniversalVariable>
-            <version>1.0.22</version>
+            <version>1.0.23</version>
         </QuBit_UniversalVariable>
     </modules>
 
@@ -36,17 +36,16 @@
                 </QuBit_UniversalVariable>
             </modules>
         </translate>
-        <!-- events>
-            <controller_action_layout_load_before>
+        <events>
+            <controller_action_layout_render_before>
                 <observers>
-                    <qubit_universalvariable_model_page_observer>
-                        <type>singleton</type>
+                    <qubituv_process_listing_data>
                         <class>qubituv/observer</class>
-                        <method>setUniversalVariable</method>
-                    </qubit_universalvariable_model_page_observer>
+                        <method>processListingData</method>
+                    </qubituv_process_listing_data>
                 </observers>
-            </controller_action_layout_load_before>
-        </events -->
+            </controller_action_layout_render_before>
+        </events>
     </frontend>
 
     <default>
@@ -63,6 +62,8 @@
                 <show_product_id>0</show_product_id>
                 <show_stock_info>0</show_stock_info>
                 <show_user_id>0</show_user_id>
+                <category_product_list_block>product_list</category_product_list_block>
+                <search_product_list_block>search_result_list</search_product_list_block>
             </advanced>
         </qubituv>
     </default>

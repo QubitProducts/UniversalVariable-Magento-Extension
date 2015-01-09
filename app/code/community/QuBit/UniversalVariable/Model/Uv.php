@@ -21,7 +21,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      * @var string
      * @url http://tools.qubitproducts.com/uv/developers/specification
      */
-    protected $_version = "1.2";
+    protected $_version = "1.2.1";
 
 
     protected function _construct()
@@ -40,9 +40,9 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             $this->_initListing();
         }
 
-        if ($this->helper()->isCartPage()) {
-            $this->_initCart();
-        }
+        //if ($this->helper()->isCartPage()) {
+        $this->_initCart();
+        //}
 
         if ($this->helper()->isConfirmationPage()) {
             $this->_initTransaction();
@@ -56,7 +56,11 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
     {
         $data = $this->toArray(array('version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
         $data = array_filter($data);
-        return Zend_Json::encode($data);
+
+        $transport = new Varien_Object($data);
+        Mage::dispatchEvent('qubituv_before_to_json', array('uv' => $transport));
+
+        return Zend_Json::encode($transport->getData());
     }
 
     /**
@@ -126,13 +130,14 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             $data['name'] = $name;
         }
 
+        $data['has_transacted'] = false;
         if ($user->getId()) {
             $data['user_id'] = $this->helper()->shouldUseRealUserId() ?
                 (string)$user->getId() :
                 md5($user->getId() . $user->getEmail());
-        }
 
-        //$data['has_transacted'] = false; todo
+            $data['has_transacted'] = $this->helper()->hasCustomerTransacted($user);
+        }
 
         $data['returning'] = $user->getId() ? true : false;
         $data['language'] = Mage::getStoreConfig('general/locale/code');
@@ -172,10 +177,14 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      * @param Mage_Catalog_Model_Product $product
      * @return array
      */
-    protected function _getProductData(Mage_Catalog_Model_Product $product)
+    public function getProductData(Mage_Catalog_Model_Product $product)
     {
+        $id = $product->getId();
+        if (!$this->helper()->shouldUseRealProductId()) {
+            $id = $product->getSku() ? $product->getSku() : md5($id);
+        }
         $data = array(
-            'id' => $this->helper()->shouldUseRealProductId() ? $product->getId() : $product->getSku(),
+            'id' => $id,
             'url' => $product->getProductUrl(),
             'name' => $product->getName(),
             'unit_price' => (float)$product->getPrice(),
@@ -223,7 +232,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             }
 
             $line = array();
-            $line['product'] = $this->_getProductData($product);
+            $line['product'] = $this->getProductData($product);
             $line['subtotal'] = (float)$item->getRowTotalInclTax();
             $line['total_discount'] = (float)$item->getDiscountAmount();
 
@@ -240,21 +249,18 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
     }
 
     /**
-     * @todo Implement 'items', 'result_count', 'sort_by', 'layout'
+     * None of the listing variables can be properly set here
+     * since the product collection is being loaded
+     * in the Mage_Catalog_Block_Product_List::_beforeToHtml method
+     *
+     * @see QuBit_UniversalVariable_Model_Observer::processListingData
      */
     protected function _initListing()
     {
         $data = array();
-        if ($this->helper()->isCategoryPage()) {
-
-        } elseif ($this->helper()->isSearchPage()) {
+        if ($this->helper()->isSearchPage()) {
             $data['query'] = Mage::helper('catalogsearch')->getQueryText();
         }
-
-        //$data['items']
-        //$data['result_count']
-        //$data['sort_by']
-        //$data['layout']
 
         $this->setListing($data);
         return $this;
@@ -267,7 +273,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             return false;
         }
 
-        $this->setProduct($this->_getProductData($product));
+        $this->setProduct($this->getProductData($product));
         return $this;
     }
 

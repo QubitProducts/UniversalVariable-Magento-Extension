@@ -11,6 +11,8 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_KEY_ADV_PROD_ID           = 'qubituv/advanced/show_product_id';
     const CONFIG_KEY_ADV_STOCK             = 'qubituv/advanced/show_stock_info';
     const CONFIG_KEY_ADV_USER_ID           = 'qubituv/advanced/show_user_id';
+    const CONFIG_KEY_ADV_CAT_BLOCK_NAME    = 'qubituv/advanced/category_product_list_block';
+    const CONFIG_KEY_ADV_SRCH_BLOCK_NAME   = 'qubituv/advanced/search_product_list_block';
 
     /**
      * @return mixed
@@ -66,6 +68,22 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
     public function shouldUseRealUserId()
     {
         return Mage::getStoreConfigFlag(self::CONFIG_KEY_ADV_USER_ID);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryProductListBlockName()
+    {
+        return Mage::getStoreConfig(self::CONFIG_KEY_ADV_CAT_BLOCK_NAME);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSearchProductListBlockName()
+    {
+        return Mage::getStoreConfig(self::CONFIG_KEY_ADV_SRCH_BLOCK_NAME);
     }
 
     /**
@@ -157,5 +175,24 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
         return false !== strpos($r->getRouteName(), 'checkout') && 'success' == $r->getActionName();
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $customer
+     * @return bool
+     */
+    public function hasCustomerTransacted(Mage_Customer_Model_Customer $customer)
+    {
+        if (!$customer->getId()) {
+            return false;
+        }
 
+        /** @var Mage_Core_Model_Resource $r */
+        $r = Mage::getSingleton('core/resource');
+
+        $read = $r->getConnection('core_read');
+        $select = $read->select()
+            ->from($r->getTableName('sales/order'), array('c' => new Zend_Db_Expr('COUNT(*)')))
+            ->where('customer_id = ?', $customer->getId());
+
+        return $read->fetchOne($select) > 0;
+    }
 }

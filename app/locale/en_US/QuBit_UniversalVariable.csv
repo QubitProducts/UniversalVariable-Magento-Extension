@@ -17,3 +17,7 @@ Show stock information,Show stock information
 "If set to yes, it will show the stock product qty","If set to yes, it will show the stock product qty"
 Show real user ID,Show real user ID
 "Show the real, numerical ID of the user. If set to no, it will use a hash. <strong>Recommended value:</strong> No","Show the real, numerical ID of the user. If set to no, it will use a hash. <strong>Recommended value:</strong> No"
+Product list block name on category pages,Product list block name on category pages
+"The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list","The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list"
+Product list block name on search result pages,Product list block name on search result pages
+"The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list","The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list"
