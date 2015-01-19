@@ -2,7 +2,7 @@
 <config>
 	<tabs>
         <qubituv translate="label">
-            <label>QuBit Universal Variable</label>
+            <label>Qubit Universal Variable</label>
             <sort_order>1000</sort_order>
         </qubituv>
     </tabs>
@@ -39,7 +39,7 @@
                 </settings>
 
             	<opentag translate="label">
-                    <label>QuBit OpenTag Configuration</label>
+                    <label>Qubit OpenTag Configuration</label>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -64,7 +64,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </container_id>
-                        
+
                         <async translate="label comment">
                             <label>Asynchronous loading</label>
                             <frontend_type>select</frontend_type>
@@ -118,11 +118,22 @@
                             <show_in_store>1</show_in_store>
                         </show_user_id>
 
+                        <show_magento_version translate="label comment">
+                            <label>Show Magento version number in the Universal Variable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[Show Magento version in UV <strong>Recommended value: </strong> No]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_magento_version>
+
                         <category_product_list_block translate="label comment">
                             <label>Product list block name on category pages</label>
                             <frontend_type>text</frontend_type>
                             <comment><![CDATA[The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list]]></comment>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -132,11 +143,12 @@
                             <label>Product list block name on search result pages</label>
                             <frontend_type>text</frontend_type>
                             <comment><![CDATA[The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list]]></comment>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </search_product_list_block>
+
                     </fields>
                 </advanced>
             </groups>

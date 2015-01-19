@@ -11,6 +11,7 @@
  * @method QuBit_UniversalVariable_Model_Uv setListing() setListing($data)
  * @method QuBit_UniversalVariable_Model_Uv setBasket() setBasket($data)
  * @method QuBit_UniversalVariable_Model_Uv setTransaction() setTransaction($data)
+ * @method QuBit_UniversalVariable_Model_Uv setMagentoVersion() setMagentoVersion(mixed $version)
  */
 
 class QuBit_UniversalVariable_Model_Uv extends Varien_Object
@@ -21,8 +22,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      * @var string
      * @url http://tools.qubitproducts.com/uv/developers/specification
      */
-    protected $_version = "1.2.1";
-
+    protected $_version = "1.2.2";
 
     protected function _construct()
     {
@@ -34,6 +34,10 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
 
         if ($this->helper()->isProductPage()) {
             $this->_initProduct();
+        }
+
+        if ($this->helper()->shouldShowMagentoVersion()) {
+            $this->setMagentoVersion(Mage::getVersion());
         }
 
         if ($this->helper()->isCategoryPage() || $this->helper()->isSearchPage()) {
@@ -54,7 +58,8 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      */
     public function getUvData()
     {
-        $data = $this->toArray(array('version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
+        print($data);
+        $data = $this->toArray(array('version', 'magento_version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
         $data = array_filter($data);
 
         $transport = new Varien_Object($data);
@@ -191,10 +196,10 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             'unit_sale_price' => (float)$product->getFinalPrice(),
             'currency' => $this->_getCurrency(),
             'description' => strip_tags($product->getShortDescription()),
+            'sku_code' => $product->getSku()
         );
 
         if ($this->helper()->shouldShowProductStockInfo()) {
-            $data['sku_code'] = $product->getSku();
             $data['stock'] = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty();
         }
 
@@ -339,7 +344,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
         $transaction['total'] = (float)$order->getGrandTotal();
 
         if ($order->getCouponCode()) {
-            $transaction['voucher'] = $order->getCouponCode();
+            $transaction['voucher'] = array($order->getCouponCode());
         }
 
         if ($order->getDiscountAmount() > 0) {

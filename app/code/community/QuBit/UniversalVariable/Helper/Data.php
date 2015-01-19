@@ -13,6 +13,7 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_KEY_ADV_USER_ID           = 'qubituv/advanced/show_user_id';
     const CONFIG_KEY_ADV_CAT_BLOCK_NAME    = 'qubituv/advanced/category_product_list_block';
     const CONFIG_KEY_ADV_SRCH_BLOCK_NAME   = 'qubituv/advanced/search_product_list_block';
+    const CONFIG_KEY_ADV_MAGENTO_VERSION   = 'qubituv/advanced/show_magento_version';
 
     /**
      * @return mixed
@@ -84,6 +85,14 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSearchProductListBlockName()
     {
         return Mage::getStoreConfig(self::CONFIG_KEY_ADV_SRCH_BLOCK_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldShowMagentoVersion()
+    {
+        return Mage::getStoreConfig(self::CONFIG_KEY_ADV_MAGENTO_VERSION);
     }
 
     /**
