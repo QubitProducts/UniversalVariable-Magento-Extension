@@ -1,5 +1,0 @@
-app/code/community/QuBit/UniversalVariable/          app/code/community/QuBit/UniversalVariable/
-app/design/frontend/base/default/layout/qubit/       app/design/frontend/base/default/layout/qubit/
-app/design/frontend/base/default/template/qubit/     app/design/frontend/base/default/template/qubit/
-app/etc/modules/QuBit_UniversalVariable.xml          app/etc/modules/QuBit_UniversalVariable.xml
-app/locale/en_US/QuBit_UniversalVariable.csv         app/locale/en_US/QuBit_UniversalVariable.csv
