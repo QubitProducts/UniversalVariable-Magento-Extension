@@ -21,3 +21,5 @@ Product list block name on category pages,Product list block name on category pa
 "The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list","The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list"
 Product list block name on search result pages,Product list block name on search result pages
 "The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list","The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list"
+Show Magento version number in the Universal Variable, Show Magento version number in the Universal Variable
+Show Magento version in UV <strong>Recommended value: </strong> No, Show Magento version in UV <strong>Recommended value: </strong> No

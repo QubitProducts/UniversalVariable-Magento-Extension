@@ -58,7 +58,6 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      */
     public function getUvData()
     {
-        print($data);
         $data = $this->toArray(array('version', 'magento_version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
         $data = array_filter($data);
 
