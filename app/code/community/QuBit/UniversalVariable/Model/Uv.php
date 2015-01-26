@@ -286,24 +286,27 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = Mage::getSingleton('checkout/session')->getQuote();
 
-        $data = array();
-        if ($quote->getId()) {
-            $data['id'] = (string)$quote->getId();
+        if ($quote->getItemsCount() > 0) {
+
+            $data = array();
+            if ($quote->getId()) {
+                $data['id'] = (string)$quote->getId();
+            }
+
+            $data['currency'] = $this->_getCurrency();
+            $data['subtotal'] = (float)$quote->getSubtotal();
+            $data['tax'] = (float)$quote->getShippingAddress()->getTaxAmount();
+            $data['subtotal_include_tax'] = (boolean)$this->_doesSubtotalIncludeTax($quote, $data['tax']);
+            $data['shipping_cost'] = (float)$quote->getShippingAmount();
+            $data['shipping_method'] = $quote->getShippingMethod() ? $quote->getShippingMethod() : '';
+            $data['total'] = (float)$quote->getGrandTotal();
+
+            // Line items
+            $data['line_items'] = $this->_getLineItems($quote->getAllVisibleItems(), 'basket');
+
+            $this->setBasket($data);
+            return $this;
         }
-
-        $data['currency'] = $this->_getCurrency();
-        $data['subtotal'] = (float)$quote->getSubtotal();
-        $data['tax'] = (float)$quote->getShippingAddress()->getTaxAmount();
-        $data['subtotal_include_tax'] = (boolean)$this->_doesSubtotalIncludeTax($quote, $data['tax']);
-        $data['shipping_cost'] = (float)$quote->getShippingAmount();
-        $data['shipping_method'] = $quote->getShippingMethod() ? $quote->getShippingMethod() : '';
-        $data['total'] = (float)$quote->getGrandTotal();
-
-        // Line items
-        $data['line_items'] = $this->_getLineItems($quote->getAllVisibleItems(), 'basket');
-
-        $this->setBasket($data);
-        return $this;
     }
 
     /**
