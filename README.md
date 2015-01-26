@@ -17,7 +17,7 @@ Exported JavaScript object under `universal_variable` on all pages follows open 
 
 We've tested the followed versions. Please submit Github Issues with detailed description if you find any bugs.
 
- * 1.6.x, 1.7.x, 1.8.x CE
+ * 1.6.x, 1.7.x, 1.8.x , 1.9.x CE
  * 1.6.x, 1.7.x, 1.8.x Enterprise
 
 ## Installation
@@ -38,6 +38,7 @@ Thank you to the contributors improving our code base:
 * beeplogic [@rgranadino](https://github.com/rgranadino)
 * Rudger [@Rud5G](https://github.com/Rud5G)
 * rogy [@rogy](https://github.com/rogy)
+* firewizard [@firewizard](https://github.com/firewizard)
 
 ## License
 

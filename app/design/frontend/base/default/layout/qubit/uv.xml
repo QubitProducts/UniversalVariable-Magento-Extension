@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="core/template" name="qubit_uv" template="qubit/uv.phtml"/>
+        </reference>
+    </default>
+</layout>

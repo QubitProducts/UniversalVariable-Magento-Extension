@@ -1,0 +1,25 @@
+Qubit Universal Variable,Qubit Universal Variable
+Configuration,Configuration
+Universal Variable Configuration,Universal Variable Configuration
+Enable Universal Variable,Enable Universal Variable
+"Variables output on every page are based on <br/><a href=""https://github.com/QubitProducts/UniversalVariable"" target=""_blank"">Universal Variable Specification</a>","Variables output on every page are based on <br/><a href=""https://github.com/QubitProducts/UniversalVariable"" target=""_blank"">Universal Variable Specification</a>"
+Qubit OpenTag Configuration,Qubit OpenTag Configuration
+Container ID,Container ID
+"Click 'Embed' button in OpenTag interface for the container you'd like to implement.<br/>Your container ID should look like 1234-56789, for example: <br/>&lt;script src=""//d3c3cq33003psk.cloudfront.net/opentag-<strong>1234-56789</strong>.js"" async defer&gt;&lt;/script&gt; <br/>You can <a href=""https://opentag.qubitproducts.com/QDashboard/"" target=""_blank"">Sign In</a> or <a href=""https://opentag.qubitproducts.com/QDashboard/register.html"" target=""_blank"">Signup for an OpenTag account</a>.","Click 'Embed' button in OpenTag interface for the container you'd like to implement.<br/>Your container ID should look like 1234-56789, for example: <br/>&lt;script src=""//d3c3cq33003psk.cloudfront.net/opentag-<strong>1234-56789</strong>.js"" async defer&gt;&lt;/script&gt; <br/>You can <a href=""https://opentag.qubitproducts.com/QDashboard/"" target=""_blank"">Sign In</a> or <a href=""https://opentag.qubitproducts.com/QDashboard/register.html"" target=""_blank"">Signup for an OpenTag account</a>."
+Enable OpenTag,Enable OpenTag
+Asynchronous loading,Asynchronous loading
+Asynchronous is recommended.,Asynchronous is recommended.
+Manage Qubit Universal Variable,Manage Qubit Universal Variable
+Advanced Settings,Advanced Settings
+Show real product IDs,Show real product IDs
+"Show the real, numerical ID of the product. If set to no, it will use the SKU. <strong>Recommended value:</strong> No","Show the real, numerical ID of the product. If set to no, it will use the SKU. <strong>Recommended value:</strong> No"
+Show stock information,Show stock information
+"If set to yes, it will show the stock product qty","If set to yes, it will show the stock product qty"
+Show real user ID,Show real user ID
+"Show the real, numerical ID of the user. If set to no, it will use a hash. <strong>Recommended value:</strong> No","Show the real, numerical ID of the user. If set to no, it will use a hash. <strong>Recommended value:</strong> No"
+Product list block name on category pages,Product list block name on category pages
+"The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list","The name of the <em>catalog/product_list</em> block on category pages. <strong>Default value: </strong>product_list"
+Product list block name on search result pages,Product list block name on search result pages
+"The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list","The name of the <em>catalog/product_list</em> block on search result pages. <strong>Default value: </strong>search_result_list"
+Show Magento version number in the Universal Variable, Show Magento version number in the Universal Variable
+Show Magento version in UV <strong>Recommended value: </strong> No, Show Magento version in UV <strong>Recommended value: </strong> No
