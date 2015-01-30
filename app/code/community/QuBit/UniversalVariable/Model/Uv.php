@@ -143,6 +143,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             $data['has_transacted'] = $this->helper()->hasCustomerTransacted($user);
         }
 
+        $data['customer_group'] = Mage::getSingleton('customer/session')->getCustomerGroupId();
         $data['returning'] = $user->getId() ? true : false;
         $data['language'] = Mage::getStoreConfig('general/locale/code');
 
