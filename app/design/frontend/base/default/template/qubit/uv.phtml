@@ -7,8 +7,10 @@ $uv = $helper->getUv();
 
 <?php if ($helper->uvEnabled()): ?>
     <script type="text/javascript">
-        var uv = <?php echo $uv->getUvData(); ?>;
-        window.universal_variable = $H(window.universal_variable || {}).merge(uv).toObject();
+      (function () {
+        var uvTemp = <?php echo $uv->getUvData(); ?>;
+        window.universal_variable = $H(window.universal_variable || {}).merge(uvTemp).toObject();
+      })();
     </script>
 <?php endif;?>
 <?php if ($helper->opentagEnabled()): ?>
