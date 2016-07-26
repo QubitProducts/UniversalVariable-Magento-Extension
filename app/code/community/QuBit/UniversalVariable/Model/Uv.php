@@ -192,8 +192,8 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             'id' => $id,
             'url' => $product->getProductUrl(),
             'name' => $product->getName(),
-            'unit_price' => (float)$product->getPrice(),
-            'unit_sale_price' => (float)$product->getFinalPrice(),
+            'unit_price' => (float)Mage::app()->getStore()->roundPrice($product->getPrice()),
+            'unit_sale_price' => (float)Mage::app()->getStore()->roundPrice($product->getFinalPrice()),
             'currency' => $this->_getCurrency(),
             'description' => strip_tags($product->getShortDescription()),
             'sku_code' => $product->getSku()

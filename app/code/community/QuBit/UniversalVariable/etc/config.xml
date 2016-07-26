@@ -2,7 +2,7 @@
 <config>
     <modules>
         <QuBit_UniversalVariable>
-            <version>1.0.23</version>
+            <version>1.0.24</version>
         </QuBit_UniversalVariable>
     </modules>
 
@@ -37,14 +37,14 @@
             </modules>
         </translate>
         <events>
-            <controller_action_layout_render_before>
+            <http_response_send_before>
                 <observers>
-                    <qubituv_process_listing_data>
+                    <qubituv_replace_listing_placeholder>
                         <class>qubituv/observer</class>
-                        <method>processListingData</method>
-                    </qubituv_process_listing_data>
+                        <method>replaceListingPlaceholder</method>
+                    </qubituv_replace_listing_placeholder>
                 </observers>
-            </controller_action_layout_render_before>
+            </http_response_send_before>
         </events>
     </frontend>
 

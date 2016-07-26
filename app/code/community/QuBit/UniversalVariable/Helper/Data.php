@@ -204,4 +204,16 @@ class QuBit_UniversalVariable_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $read->fetchOne($select) > 0;
     }
+
+    /**
+     * Use this placeholder instead of the actual listing information
+     * It should be replaced with real listing information before displaying the output
+     * @see QuBit_UniversalVariable_Model_Observer
+     *
+     * @return string
+     */
+    public function getListingReplacementString()
+    {
+        return "[][[]]||+!+[];\n";
+    }
 }

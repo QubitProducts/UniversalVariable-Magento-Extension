@@ -1,18 +1,18 @@
 <?php
 /* @var $helper QuBit_UniversalVariable_Helper_Data */
 $helper = $this->helper('qubituv');
-
-$uv = $helper->getUv();
 ?>
 
 <?php if ($helper->uvEnabled()): ?>
     <script type="text/javascript">
-      (function () {
-        var uvTemp = <?php echo $uv->getUvData(); ?>;
-        window.universal_variable = $H(window.universal_variable || {}).merge(uvTemp).toObject();
-      })();
+        (function () {
+            var uvTemp = <?php echo $helper->getUv()->getUvData(); ?>;
+            <?php echo $helper->getListingReplacementString() ?>
+            window.universal_variable = $H(window.universal_variable || {}).merge(uvTemp).toObject();
+        })();
     </script>
-<?php endif;?>
+<?php endif; ?>
+
 <?php if ($helper->opentagEnabled()): ?>
-    <script type="text/javascript" src="//d3c3cq33003psk.cloudfront.net/opentag-<?php echo $helper->getContainerId();?>.js" <?php if ($helper->useAsync()): ?>async defer<?php endif; ?>></script>
-<?php endif;?>
+    <script type="text/javascript" src="//d3c3cq33003psk.cloudfront.net/opentag-<?php echo $helper->getContainerId(); ?>.js" <?php if ($helper->useAsync()): ?>async defer<?php endif; ?>></script>
+<?php endif; ?>
