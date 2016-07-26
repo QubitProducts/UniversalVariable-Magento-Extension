@@ -10,7 +10,7 @@
                                 <children>
                                     <qubituv translate="title" module="qubituv">
                                         <sort_order>1000</sort_order>
-                                        <title>Manage QuBit Universal Variable</title>
+                                        <title>Manage Qubit Universal Variable</title>
                                     </qubituv>
                                 </children>
                             </config>

@@ -11,6 +11,7 @@
  * @method QuBit_UniversalVariable_Model_Uv setListing() setListing($data)
  * @method QuBit_UniversalVariable_Model_Uv setBasket() setBasket($data)
  * @method QuBit_UniversalVariable_Model_Uv setTransaction() setTransaction($data)
+ * @method QuBit_UniversalVariable_Model_Uv setMagentoVersion() setMagentoVersion(mixed $version)
  */
 
 class QuBit_UniversalVariable_Model_Uv extends Varien_Object
@@ -21,8 +22,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      * @var string
      * @url http://tools.qubitproducts.com/uv/developers/specification
      */
-    protected $_version = "1.2.1";
-
+    protected $_version = "1.2.2";
 
     protected function _construct()
     {
@@ -34,6 +34,10 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
 
         if ($this->helper()->isProductPage()) {
             $this->_initProduct();
+        }
+
+        if ($this->helper()->shouldShowMagentoVersion()) {
+            $this->setMagentoVersion(Mage::getVersion());
         }
 
         if ($this->helper()->isCategoryPage() || $this->helper()->isSearchPage()) {
@@ -54,7 +58,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
      */
     public function getUvData()
     {
-        $data = $this->toArray(array('version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
+        $data = $this->toArray(array('version', 'magento_version', 'page', 'user', 'product', 'basket', 'listing', 'transaction', 'events'));
         $data = array_filter($data);
 
         $transport = new Varien_Object($data);
@@ -139,6 +143,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             $data['has_transacted'] = $this->helper()->hasCustomerTransacted($user);
         }
 
+        $data['customer_group'] = Mage::getSingleton('customer/session')->getCustomerGroupId();
         $data['returning'] = $user->getId() ? true : false;
         $data['language'] = Mage::getStoreConfig('general/locale/code');
 
@@ -187,14 +192,14 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
             'id' => $id,
             'url' => $product->getProductUrl(),
             'name' => $product->getName(),
-            'unit_price' => (float)$product->getPrice(),
-            'unit_sale_price' => (float)$product->getFinalPrice(),
+            'unit_price' => (float)Mage::app()->getStore()->roundPrice($product->getPrice()),
+            'unit_sale_price' => (float)Mage::app()->getStore()->roundPrice($product->getFinalPrice()),
             'currency' => $this->_getCurrency(),
             'description' => strip_tags($product->getShortDescription()),
+            'sku_code' => $product->getSku()
         );
 
         if ($this->helper()->shouldShowProductStockInfo()) {
-            $data['sku_code'] = $product->getSku();
             $data['stock'] = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty();
         }
 
@@ -282,24 +287,27 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = Mage::getSingleton('checkout/session')->getQuote();
 
-        $data = array();
-        if ($quote->getId()) {
-            $data['id'] = (string)$quote->getId();
+        if ($quote->getItemsCount() > 0) {
+
+            $data = array();
+            if ($quote->getId()) {
+                $data['id'] = (string)$quote->getId();
+            }
+
+            $data['currency'] = $this->_getCurrency();
+            $data['subtotal'] = (float)$quote->getSubtotal();
+            $data['tax'] = (float)$quote->getShippingAddress()->getTaxAmount();
+            $data['subtotal_include_tax'] = (boolean)$this->_doesSubtotalIncludeTax($quote, $data['tax']);
+            $data['shipping_cost'] = (float)$quote->getShippingAmount();
+            $data['shipping_method'] = $quote->getShippingMethod() ? $quote->getShippingMethod() : '';
+            $data['total'] = (float)$quote->getGrandTotal();
+
+            // Line items
+            $data['line_items'] = $this->_getLineItems($quote->getAllVisibleItems(), 'basket');
+
+            $this->setBasket($data);
+            return $this;
         }
-
-        $data['currency'] = $this->_getCurrency();
-        $data['subtotal'] = (float)$quote->getSubtotal();
-        $data['tax'] = (float)$quote->getShippingAddress()->getTaxAmount();
-        $data['subtotal_include_tax'] = (boolean)$this->_doesSubtotalIncludeTax($quote, $data['tax']);
-        $data['shipping_cost'] = (float)$quote->getShippingAmount();
-        $data['shipping_method'] = $quote->getShippingMethod() ? $quote->getShippingMethod() : '';
-        $data['total'] = (float)$quote->getGrandTotal();
-
-        // Line items
-        $data['line_items'] = $this->_getLineItems($quote->getAllVisibleItems(), 'basket');
-
-        $this->setBasket($data);
-        return $this;
     }
 
     /**
@@ -339,7 +347,7 @@ class QuBit_UniversalVariable_Model_Uv extends Varien_Object
         $transaction['total'] = (float)$order->getGrandTotal();
 
         if ($order->getCouponCode()) {
-            $transaction['voucher'] = $order->getCouponCode();
+            $transaction['voucher'] = array($order->getCouponCode());
         }
 
         if ($order->getDiscountAmount() > 0) {
